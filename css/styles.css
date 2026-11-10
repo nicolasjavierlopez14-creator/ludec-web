@@ -629,6 +629,9 @@ button { font: inherit; }
   margin-top: 40px;
   padding-top: 28px;
   border-top: 1px solid rgba(255, 255, 255, .14);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
 }
 .contact-item dt {
   margin-bottom: 4px;
