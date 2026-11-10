@@ -77,6 +77,66 @@
     });
   }
 
+  /* ---------- Formulario de contacto (envío vía Web3Forms) ---------- */
+  var form = document.getElementById('contact-form');
+  if (form && window.fetch && window.FormData) {
+    var statusEl = form.querySelector('.form-status');
+    var submitBtn = form.querySelector('.form-submit');
+    var submitLabel = submitBtn.textContent;
+
+    var setStatus = function (msg, type) {
+      statusEl.textContent = msg;
+      statusEl.className = 'form-status' + (type ? ' is-' + type : '');
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var firstInvalid = null;
+      form.querySelectorAll('[required]').forEach(function (field) {
+        var ok = field.checkValidity() && field.value.trim() !== '';
+        field.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        if (!ok && !firstInvalid) firstInvalid = field;
+      });
+      if (firstInvalid) {
+        setStatus('Por favor, complete nombre, un email válido y el mensaje.', 'error');
+        firstInvalid.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+      setStatus('', '');
+
+      // FormData = petición "simple" (sin preflight CORS)
+      var data = new FormData(form);
+      data.append('replyto', data.get('email'));
+
+      fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          if (json && json.success) {
+            form.reset();
+            form.querySelectorAll('[aria-invalid]').forEach(function (f) { f.removeAttribute('aria-invalid'); });
+            setStatus('Gracias. Recibimos su consulta y le responderemos a la brevedad.', 'success');
+          } else {
+            throw new Error('envio');
+          }
+        })
+        .catch(function () {
+          setStatus('No pudimos enviar la consulta. Intente nuevamente o escríbanos por WhatsApp.', 'error');
+        })
+        .then(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        });
+    });
+  }
+
   /* ---------- Aparición sutil de contenidos ---------- */
   var revealItems = document.querySelectorAll('.reveal');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
