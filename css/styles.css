@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LUDEC S.A. — Hoja de estilos
+   LUDEC — Hoja de estilos
    ========================================================================== */
 
 /* ---------- Variables ---------- */
@@ -238,7 +238,6 @@ button { font: inherit; }
   font-weight: 700;
   letter-spacing: .06em;
 }
-.logo-suffix { font-weight: 500; color: var(--text-muted); letter-spacing: .02em; }
 
 .site-nav {
   display: flex;
@@ -736,7 +735,6 @@ button { font: inherit; }
 }
 .logo-footer { color: var(--white); }
 .logo-footer .logo-mark { box-shadow: 5px 5px 0 0 rgba(255, 255, 255, .35); }
-.logo-footer .logo-suffix { color: rgba(255, 255, 255, .6); }
 .logo-footer .logo-text { font-size: 1.0625rem; }
 .footer-tagline { letter-spacing: .02em; }
 

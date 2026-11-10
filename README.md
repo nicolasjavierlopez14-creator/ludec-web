@@ -1,6 +1,6 @@
-# LUDEC S.A.
+# LUDEC
 
-Sitio institucional de LUDEC S.A.
+Sitio institucional de LUDEC
 
 ## Sitio
 

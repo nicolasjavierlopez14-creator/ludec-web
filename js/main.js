@@ -1,4 +1,4 @@
-/* LUDEC S.A. — Interacciones mínimas (JavaScript nativo, sin dependencias) */
+/* LUDEC — Interacciones mínimas (JavaScript nativo, sin dependencias) */
 (function () {
   'use strict';
 
